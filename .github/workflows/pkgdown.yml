@@ -5,10 +5,16 @@ on:
 name: pkgdown
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
-  pkgdown:
+  build:
     runs-on: ubuntu-latest
     container: bioconductor/bioconductor_docker:devel
 
@@ -30,11 +36,37 @@ jobs:
       - name: Install package
         run: R CMD INSTALL .
 
-      - name: Build and deploy pkgdown site
-        run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build pkgdown site
+        run: Rscript -e 'pkgdown::build_site(new_process = FALSE)'
+
+      - name: Upload site as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pkgdown-site
+          path: docs/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Download site artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: pkgdown-site
+          path: docs/
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
