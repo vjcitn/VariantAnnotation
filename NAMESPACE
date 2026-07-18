@@ -102,7 +102,7 @@ export(
     isSNV, isInsertion, isDeletion, isIndel, isDelins, isTransition,
     isSubstitution,
     VcfFile, VcfFileList,
-    makeVRangesFromGRanges, post_Hs_region, vep_by_region
+    makeVRangesFromGRanges, post_Hs_region, vep_by_region, run_vep
 )
 
 exportMethods(
