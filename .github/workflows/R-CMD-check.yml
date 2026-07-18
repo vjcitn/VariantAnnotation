@@ -19,6 +19,7 @@ jobs:
 
       - name: Install package dependencies
         run: |
+          install.packages("remotes")
           remotes::install_deps(dependencies = TRUE, repos = BiocManager::repositories())
         shell: Rscript {0}
 
