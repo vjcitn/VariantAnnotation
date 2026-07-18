@@ -1,0 +1,32 @@
+on:
+  push:
+    branches: [towards_pages]
+  pull_request:
+    branches: [towards_pages]
+
+name: R-CMD-check
+
+permissions:
+  contents: read
+
+jobs:
+  R-CMD-check:
+    runs-on: ubuntu-latest
+    container: bioconductor/bioconductor_docker:devel
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install package dependencies
+        run: |
+          BiocManager::install(
+            pkgs = BiocManager::dependencies(".", type = "all"),
+            ask = FALSE,
+            update = FALSE
+          )
+        shell: Rscript {0}
+
+      - name: Build and check
+        run: |
+          R CMD build --no-build-vignettes .
+          R CMD check --no-manual --no-vignettes --timings *.tar.gz
