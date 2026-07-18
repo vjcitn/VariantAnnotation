@@ -23,14 +23,8 @@ jobs:
 
       - name: Install pkgdown and package dependencies
         run: |
-          BiocManager::install(
-            pkgs = c(
-              "pkgdown",
-              BiocManager::dependencies(".", type = "all")
-            ),
-            ask = FALSE,
-            update = FALSE
-          )
+          BiocManager::install("pkgdown", ask = FALSE, update = FALSE)
+          remotes::install_deps(dependencies = TRUE, repos = BiocManager::repositories())
         shell: Rscript {0}
 
       - name: Install package

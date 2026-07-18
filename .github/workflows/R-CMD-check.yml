@@ -19,11 +19,7 @@ jobs:
 
       - name: Install package dependencies
         run: |
-          BiocManager::install(
-            pkgs = BiocManager::dependencies(".", type = "all"),
-            ask = FALSE,
-            update = FALSE
-          )
+          remotes::install_deps(dependencies = TRUE, repos = BiocManager::repositories())
         shell: Rscript {0}
 
       - name: Build and check
