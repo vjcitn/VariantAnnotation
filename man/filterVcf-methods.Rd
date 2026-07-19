@@ -104,7 +104,7 @@ if (require(TxDb.Hsapiens.UCSC.hg19.knownGene)) {
  
   ## Range-based filter:
   withinRange <- function(rng)
-      function(x) x %within% rng
+      function(x) x \%within\% rng
 
   ## The first filter identifies SNVs and the second applies the 
   ## range restriction.
