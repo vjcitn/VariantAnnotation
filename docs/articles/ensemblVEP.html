@@ -43,6 +43,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/bioconductor/VariantAnnotation/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -61,7 +62,7 @@
             
             <h4 data-toc-skip class="date">July 18, 2026</h4>
       
-
+      <small class="dont-index">Source: <a href="https://github.com/bioconductor/VariantAnnotation/blob/HEAD/vignettes/ensemblVEP.Rmd" class="external-link"><code>vignettes/ensemblVEP.Rmd</code></a></small>
       <div class="d-none name"><code>ensemblVEP.Rmd</code></div>
     </div>
 
@@ -82,7 +83,7 @@
 </h2>
 <p>The function <code>vep_by_region</code> will accept a VCF object as defined in <em><a href="https://bioconductor.org/packages/3.24/VariantAnnotation" class="external-link">VariantAnnotation</a></em>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">VariantAnnotation</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bioconductor/VariantAnnotation" class="external-link">VariantAnnotation</a></span><span class="op">)</span></span>
 <span><span class="va">fl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"chr22.vcf.gz"</span>, package<span class="op">=</span><span class="st">"VariantAnnotation"</span><span class="op">)</span></span>
 <span><span class="va">r22</span> <span class="op">=</span> <span class="fu"><a href="../reference/readVcf-methods.html">readVcf</a></span><span class="op">(</span><span class="va">fl</span><span class="op">)</span></span>
 <span><span class="va">r22</span></span></code></pre></div>
@@ -135,10 +136,10 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mtmorgan.github.io/rjsoncons/" class="external-link">rjsoncons</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span><span class="fu"><a href="https://mtmorgan.github.io/rjsoncons/reference/zzz_paths_and_pointer.html" class="external-link">jmespath</a></span><span class="op">(</span><span class="va">jans</span>, <span class="st">"[*]"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##  [1] "most_severe_consequence"         "allele_string"                  </span></span>
-<span><span class="co">##  [3] "start"                           "end"                            </span></span>
-<span><span class="co">##  [5] "assembly_name"                   "id"                             </span></span>
-<span><span class="co">##  [7] "input"                           "transcript_consequences"        </span></span>
+<pre><code><span><span class="co">##  [1] "assembly_name"                   "most_severe_consequence"        </span></span>
+<span><span class="co">##  [3] "start"                           "input"                          </span></span>
+<span><span class="co">##  [5] "transcript_consequences"         "end"                            </span></span>
+<span><span class="co">##  [7] "id"                              "allele_string"                  </span></span>
 <span><span class="co">##  [9] "strand"                          "seq_region_name"                </span></span>
 <span><span class="co">## [11] "colocated_variants"              "motif_feature_consequences"     </span></span>
 <span><span class="co">## [13] "regulatory_feature_consequences"</span></span></code></pre>
@@ -152,8 +153,8 @@
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">fromJSON</span><span class="op">(</span><span class="fu"><a href="https://mtmorgan.github.io/rjsoncons/reference/zzz_paths_and_pointer.html" class="external-link">jmespath</a></span><span class="op">(</span><span class="va">jans</span>, <span class="st">"[*].regulatory_feature_consequences"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [[1]]</span></span>
-<span><span class="co">##   consequence_terms regulatory_feature_id      biotype variant_allele   impact</span></span>
-<span><span class="co">## 1      regulato....          ENSR22_5.... CTCF_bin....              T MODIFIER</span></span></code></pre>
+<span><span class="co">##   variant_allele      biotype   impact regulatory_feature_id consequence_terms</span></span>
+<span><span class="co">## 1              T CTCF_bin.... MODIFIER          ENSR22_5....      regulato....</span></span></code></pre>
 <p>Furthermore, the content of the motif feature consequences field seems very peculiar.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu">fromJSON</span><span class="op">(</span><span class="fu"><a href="https://mtmorgan.github.io/rjsoncons/reference/zzz_paths_and_pointer.html" class="external-link">jmespath</a></span><span class="op">(</span><span class="va">jans</span>, <span class="st">"[*].motif_feature_consequences"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -195,88 +196,116 @@
 <span><span class="va">tstg</span> <span class="op">=</span> <span class="fu">.make_GRanges</span><span class="op">(</span> <span class="va">res</span> <span class="op">)</span></span>
 <span><span class="va">tstg</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>  <span class="co"># full print is unwieldy</span></span></code></pre></div>
 <pre><code><span><span class="co">## GRanges object with 100 ranges and 1 metadata column:</span></span>
-<span><span class="co">##         seqnames    ranges strand | most_severe_consequence</span></span>
-<span><span class="co">##            &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt; |                  &lt;list&gt;</span></span>
-<span><span class="co">##     [1]       22  50300078      * |          intron_variant</span></span>
-<span><span class="co">##     [2]       22  50300086      * |          intron_variant</span></span>
-<span><span class="co">##     [3]       22  50300101      * |          intron_variant</span></span>
-<span><span class="co">##     [4]       22  50300113      * |          intron_variant</span></span>
-<span><span class="co">##     [5]       22  50300166      * |   splice_region_variant</span></span>
-<span><span class="co">##     ...      ...       ...    ... .                     ...</span></span>
-<span><span class="co">##    [96]       22  50304748      * |          intron_variant</span></span>
-<span><span class="co">##    [97]       22  50304805      * |          intron_variant</span></span>
-<span><span class="co">##    [98]       22  50304935      * |          intron_variant</span></span>
-<span><span class="co">##    [99]       22  50304943      * |          intron_variant</span></span>
-<span><span class="co">##   [100]       22  50305084      * |          intron_variant</span></span>
+<span><span class="co">##         seqnames    ranges strand | assembly_name</span></span>
+<span><span class="co">##            &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt; |        &lt;list&gt;</span></span>
+<span><span class="co">##     [1]       22  50300078      * |        GRCh38</span></span>
+<span><span class="co">##     [2]       22  50300086      * |        GRCh38</span></span>
+<span><span class="co">##     [3]       22  50300101      * |        GRCh38</span></span>
+<span><span class="co">##     [4]       22  50300113      * |        GRCh38</span></span>
+<span><span class="co">##     [5]       22  50300166      * |        GRCh38</span></span>
+<span><span class="co">##     ...      ...       ...    ... .           ...</span></span>
+<span><span class="co">##    [96]       22  50304748      * |        GRCh38</span></span>
+<span><span class="co">##    [97]       22  50304805      * |        GRCh38</span></span>
+<span><span class="co">##    [98]       22  50304935      * |        GRCh38</span></span>
+<span><span class="co">##    [99]       22  50304943      * |        GRCh38</span></span>
+<span><span class="co">##   [100]       22  50305084      * |        GRCh38</span></span>
 <span><span class="co">##   -------</span></span>
 <span><span class="co">##   seqinfo: 1 sequence from an unspecified genome; no seqlengths</span></span></code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">mcols</a></span><span class="op">(</span><span class="va">tstg</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##  [1] "most_severe_consequence"         "allele_string"                  </span></span>
-<span><span class="co">##  [3] "assembly_name"                   "id"                             </span></span>
-<span><span class="co">##  [5] "input"                           "transcript_consequences"        </span></span>
+<pre><code><span><span class="co">##  [1] "assembly_name"                   "most_severe_consequence"        </span></span>
+<span><span class="co">##  [3] "input"                           "transcript_consequences"        </span></span>
+<span><span class="co">##  [5] "id"                              "allele_string"                  </span></span>
 <span><span class="co">##  [7] "strand"                          "colocated_variants"             </span></span>
 <span><span class="co">##  [9] "motif_feature_consequences"      "regulatory_feature_consequences"</span></span></code></pre>
 <p>Now information about variants can be retrieved with range operations. Deep annotation requires nested structure of the metadata columns.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">mcols</a></span><span class="op">(</span><span class="va">tstg</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span>, <span class="st">"transcript_consequences"</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## [[1]]</span></span>
-<span><span class="co">##    consequence_terms variant_allele strand gene_symbol      gene_id</span></span>
-<span><span class="co">## 1       intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 2       intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 3       intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 4       intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 5       intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 6       intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 7       intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 8       intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 9       intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 10      intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 11      intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 12      intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 13      intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 14      intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 15      intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 16      intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 17      intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 18      intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 19      intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 20      intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 21      intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 22      intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 23      intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 24      intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 25      intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 26      intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">## 27      intron_v....              G     -1      PLXNB2 ENSG0000....</span></span>
-<span><span class="co">##    transcript_id gene_symbol_source   hgnc_id      biotype   impact      flags</span></span>
-<span><span class="co">## 1   ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 2   ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER cds_end_NF</span></span>
-<span><span class="co">## 3   ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER cds_end_NF</span></span>
-<span><span class="co">## 4   ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 5   ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 6   ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 7   ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 8   ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 9   ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 10  ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 11  ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 12  ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 13  ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 14  ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 15  ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 16  ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 17  ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 18  ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 19  ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 20  ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 21  ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 22  ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 23  ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 24  ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 25  ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 26  ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER           </span></span>
-<span><span class="co">## 27  ENST0000....               HGNC HGNC:9104 protein_.... MODIFIER</span></span></code></pre>
+<span><span class="co">##      impact variant_allele      gene_id gene_symbol transcript_id</span></span>
+<span><span class="co">## 1  MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 2  MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 3  MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 4  MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 5  MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 6  MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 7  MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 8  MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 9  MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 10 MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 11 MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 12 MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 13 MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 14 MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 15 MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 16 MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 17 MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 18 MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 19 MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 20 MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 21 MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 22 MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 23 MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 24 MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 25 MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 26 MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">## 27 MODIFIER              G ENSG0000....      PLXNB2  ENST0000....</span></span>
+<span><span class="co">##    gene_symbol_source      biotype   hgnc_id strand consequence_terms</span></span>
+<span><span class="co">## 1                HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 2                HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 3                HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 4                HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 5                HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 6                HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 7                HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 8                HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 9                HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 10               HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 11               HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 12               HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 13               HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 14               HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 15               HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 16               HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 17               HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 18               HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 19               HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 20               HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 21               HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 22               HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 23               HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 24               HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 25               HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 26               HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">## 27               HGNC protein_.... HGNC:9104     -1      intron_v....</span></span>
+<span><span class="co">##         flags</span></span>
+<span><span class="co">## 1            </span></span>
+<span><span class="co">## 2  cds_end_NF</span></span>
+<span><span class="co">## 3  cds_end_NF</span></span>
+<span><span class="co">## 4            </span></span>
+<span><span class="co">## 5            </span></span>
+<span><span class="co">## 6            </span></span>
+<span><span class="co">## 7            </span></span>
+<span><span class="co">## 8            </span></span>
+<span><span class="co">## 9            </span></span>
+<span><span class="co">## 10           </span></span>
+<span><span class="co">## 11           </span></span>
+<span><span class="co">## 12           </span></span>
+<span><span class="co">## 13           </span></span>
+<span><span class="co">## 14           </span></span>
+<span><span class="co">## 15           </span></span>
+<span><span class="co">## 16           </span></span>
+<span><span class="co">## 17           </span></span>
+<span><span class="co">## 18           </span></span>
+<span><span class="co">## 19           </span></span>
+<span><span class="co">## 20           </span></span>
+<span><span class="co">## 21           </span></span>
+<span><span class="co">## 22           </span></span>
+<span><span class="co">## 23           </span></span>
+<span><span class="co">## 24           </span></span>
+<span><span class="co">## 25           </span></span>
+<span><span class="co">## 26           </span></span>
+<span><span class="co">## 27</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="further-work">Further work<a class="anchor" aria-label="anchor" href="#further-work"></a>

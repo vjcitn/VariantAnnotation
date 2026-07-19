@@ -22,6 +22,9 @@
 
 ## Citation
 
+Source:
+[`inst/CITATION`](https://github.com/bioconductor/VariantAnnotation/blob/HEAD/inst/CITATION)
+
 Obenchain V, Lawrence M, Carey V, Gogarten S, Shannon P, Morgan M
 (2014). “VariantAnnotation: a Bioconductor package for exploration and
 annotation of genetic variants.” *Bioinformatics*, **30**(14),

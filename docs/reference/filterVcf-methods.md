@@ -194,8 +194,8 @@ filt <- FilterRules(list(VTisSNP = function(x) info(x)$VT == "SNP"))
 filt2 <- filterVcf(fl, "hg19", tempfile(), prefilters=pre, filters=filt)
 #> starting prefilter
 #> prefiltering 10376 records
-#> prefiltered to /var/folders/yw/gfhgh7k565v9w83x_k764wbc0000gp/T//RtmpWIuJnc/file23631e890b2b
-#> prefilter compressing and indexing ‘/var/folders/yw/gfhgh7k565v9w83x_k764wbc0000gp/T//RtmpWIuJnc/file23631e890b2b’
+#> prefiltered to /var/folders/yw/gfhgh7k565v9w83x_k764wbc0000gp/T//Rtmp6qB1Ev/file25f05f43a1ce
+#> prefilter compressing and indexing ‘/var/folders/yw/gfhgh7k565v9w83x_k764wbc0000gp/T//Rtmp6qB1Ev/file25f05f43a1ce’
 #> starting filter
 #> filtering 794 records
 #> completed filtering

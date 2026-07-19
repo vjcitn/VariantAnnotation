@@ -5,7 +5,7 @@ articles:
   ensemblVEP: ensemblVEP.html
   filterVcf: filterVcf.html
   VariantAnnotation: VariantAnnotation.html
-last_built: 2026-07-18T16:10Z
+last_built: 2026-07-18T16:37Z
 urls:
   reference: https://github.com/vjcitn/VariantAnnotation/reference
   article: https://github.com/vjcitn/VariantAnnotation/articles

@@ -43,6 +43,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/bioconductor/VariantAnnotation/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -62,7 +63,7 @@
             <h4 data-toc-skip class="date"></h4>
 <p>Created: 20 February, 2013 Last Modified: July 18, 2026</p>
       
-
+      <small class="dont-index">Source: <a href="https://github.com/bioconductor/VariantAnnotation/blob/HEAD/vignettes/filterVcf.Rmd" class="external-link"><code>vignettes/filterVcf.Rmd</code></a></small>
       <div class="d-none name"><code>filterVcf.Rmd</code></div>
     </div>
 
@@ -149,7 +150,7 @@
 </h3>
 <p><code>FilterRules</code> allow you to combine a list of filters, or of prefilters so that they may be passed as parameters to <em>filterVcf</em>. We use them here to combine the <em>isGermlinePrefilter</em> with the <em>notInDbsnpPrefilter</em>, and the <em>isSNV</em> with the <em>AD</em> filter.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">VariantAnnotation</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bioconductor/VariantAnnotation" class="external-link">VariantAnnotation</a></span><span class="op">)</span></span>
 <span><span class="va">prefilters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/FilterRules-class.html" class="external-link">FilterRules</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>germline<span class="op">=</span><span class="va">isGermlinePrefilter</span>,</span>
 <span>                               dbsnp<span class="op">=</span><span class="va">notInDbsnpPrefilter</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">filters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/FilterRules-class.html" class="external-link">FilterRules</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>isSNV<span class="op">=</span><span class="va">isSNV</span>, AD<span class="op">=</span><span class="va">allelicDepth</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -232,7 +233,7 @@
 <p>The most basic form of VCF file filtering is by genomic region. We demonstrate that here, extracting variant calls in a 1M base region of chromosome 7, writing them to a new file, compressing and then indexing that file. These steps created the small VCF file which accompanies this vignette, and is used in the code shown above.</p>
 <p>Note that this code is <em>NOT</em> executed during the creation of this vignette: we do not supply the very large VCF file that it operates on. This code is here for tutorial purposes only, showing how you can filter by genomic region with a possibly large VCF file of your own.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">VariantAnnotation</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bioconductor/VariantAnnotation" class="external-link">VariantAnnotation</a></span><span class="op">)</span></span>
 <span><span class="va">file.gz</span> <span class="op">&lt;-</span> <span class="st">"somaticVcfBeta-HCC1187-H-200-37-ASM-T1-N1.vcf.gz"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="va">file.gz</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">file.gz.tbi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">file.gz</span>, <span class="st">".tbi"</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
