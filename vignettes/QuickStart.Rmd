@@ -42,11 +42,13 @@ vcf
 dest <- tempfile(fileext = ".vcf")
 writeVcf(vcf, dest)
 
-## Filter to variants with non-missing QUAL > 20
+## Filter to variants with QUAL > 100 and read back to confirm reduced records
 filt_dest <- tempfile(fileext = ".vcf.gz")
 filterVcf(fl, genome = "hg19", destination = filt_dest,
           filters = FilterRules(list(
-              minQ = function(x) !is.na(fixed(x)$QUAL) & fixed(x)$QUAL > 20)))
+              minQ = function(x) !is.na(fixed(x)$QUAL) & fixed(x)$QUAL > 100)))
+vcf_filt <- readVcf(filt_dest, genome = "hg19")
+dim(vcf_filt)
 ```
 
 Key functions: `readVcf`, `writeVcf`, `scanVcf`, `scanVcfHeader`,
