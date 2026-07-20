@@ -1,11 +1,11 @@
 ---
-title: "2. Using filterVcf() to Select Variants from VCF Files"
+title: "Using filterVcf() to Select Variants from VCF Files"
 author: "Paul Shannon"
 date: |+
   Created: 20 February, 2013
   Last Modified: `r format(Sys.Date(), "%B %d, %Y")`
 vignette: >
-  %\VignetteIndexEntry{2. Using filterVcf to Select Variants from VCF Files}
+  %\VignetteIndexEntry{Using filterVcf to Select Variants from VCF Files}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 output:
