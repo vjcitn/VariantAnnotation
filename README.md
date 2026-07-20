@@ -23,7 +23,7 @@ chromosomal regions, samples, and fields are loaded.
 vcf <- readVcf("variants.vcf.gz", genome = "hg19")
 writeVcf(vcf, "output.vcf")
 filterVcf("variants.vcf.gz", genome = "hg19", destination = "filtered.vcf.gz",
-          filters = FilterRules(list(minQ = function(x) !is.na(fixed(x)$QUAL) & fixed(x)$QUAL > 20)))
+          filters = FilterRules(list(minQ = function(x) !is.na(fixed(x)$QUAL) & fixed(x)$QUAL > 100)))
 ```
 
 Key functions: `readVcf`, `writeVcf`, `scanVcf`, `scanVcfHeader`,
