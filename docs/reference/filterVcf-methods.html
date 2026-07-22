@@ -19,8 +19,9 @@
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/ensemblVEP.html">ensemblVEP: using the REST API with Bioconductor</a></li>
-    <li><a class="dropdown-item" href="../articles/filterVcf.html">2. Using filterVcf() to Select Variants from VCF Files</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/DetailedView.html">Overview of the VariantAnnotation Package</a></li>
+    <li><a class="dropdown-item" href="../articles/ensemblVEP.html">ensemblVEP: using the REST API with Bioconductor</a></li>
+    <li><a class="dropdown-item" href="../articles/filterVcf.html">Using filterVcf() to Select Variants from VCF Files</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -161,7 +162,7 @@
 <span class="r-in"><span> </span></span>
 <span class="r-in"><span>  <span class="co">## Range-based filter:</span></span></span>
 <span class="r-in"><span>  <span class="va">withinRange</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">rng</span><span class="op">)</span></span></span>
-<span class="r-in"><span>      <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> </span></span>
+<span class="r-in"><span>      <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op"><a href="https://rdrr.io/pkg/IRanges/man/findOverlaps-methods.html" class="external-link">%within%</a></span> <span class="va">rng</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co">## The first filter identifies SNVs and the second applies the </span></span></span>
 <span class="r-in"><span>  <span class="co">## range restriction.</span></span></span>
@@ -195,8 +196,8 @@
 <span class="r-in"><span><span class="va">filt2</span> <span class="op">&lt;-</span> <span class="fu">filterVcf</span><span class="op">(</span><span class="va">fl</span>, <span class="st">"hg19"</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>, prefilters<span class="op">=</span><span class="va">pre</span>, filters<span class="op">=</span><span class="va">filt</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> starting prefilter</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> prefiltering 10376 records</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> prefiltered to /var/folders/yw/gfhgh7k565v9w83x_k764wbc0000gp/T//Rtmp6qB1Ev/file25f05f43a1ce</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> prefilter compressing and indexing ‘/var/folders/yw/gfhgh7k565v9w83x_k764wbc0000gp/T//Rtmp6qB1Ev/file25f05f43a1ce’</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> prefiltered to /var/folders/yw/gfhgh7k565v9w83x_k764wbc0000gp/T//RtmpNT5Ogg/file3b637d184d3a</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> prefilter compressing and indexing ‘/var/folders/yw/gfhgh7k565v9w83x_k764wbc0000gp/T//RtmpNT5Ogg/file3b637d184d3a’</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> starting filter</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> filtering 794 records</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> completed filtering</span>

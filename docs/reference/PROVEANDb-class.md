@@ -129,7 +129,6 @@ Valerie Obenchain
   }
 #> Loading required package: SIFT.Hsapiens.dbSNP137
 #> Loading required package: RSQLite
-#> Warning: package ‘RSQLite’ was built under R version 4.6.1
 #>    DBSNPID         VARIANT PROVEANPRED  SIFTPRED
 #> 1 10004242 4,159782570,G,A Deleterious  Damaging
 #> 2 10004516 4,111398208,A,G     Neutral Tolerated

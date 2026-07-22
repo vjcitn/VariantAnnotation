@@ -1,6 +1,6 @@
 <div id="main" class="col-md-9" role="main">
 
-# 2. Using filterVcf() to Select Variants from VCF Files
+# Using filterVcf() to Select Variants from VCF Files
 
 <div class="section level2">
 

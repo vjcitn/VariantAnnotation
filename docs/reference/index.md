@@ -180,6 +180,9 @@
     `readVcf(<character>,<missing>)` `readInfo()` `readGeno()`
     `readGT()` `import(<VcfFile>,<ANY>,<ANY>)` : Read VCF files
 
+-   `run_vep()` : Run a locally installed Ensembl VEP script on a VCF
+    object or file
+
 -   `scanVcfHeader()` `scanVcf()` : Import VCF files
 
 -   `seqinfo(<VcfFile>)` `seqinfo(<VcfFileList>)` : Get seqinfo for VCF

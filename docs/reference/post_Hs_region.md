@@ -75,7 +75,7 @@ rest.ensembl.org/vep/homo\_sapiens/region endpoint.
 chk = post_Hs_region("7", 155800001, "chk", "A", "T")
 chk
 #> Response [https://rest.ensembl.org/vep/homo_sapiens/region]
-#>   Date: 2026-07-18 16:38
+#>   Date: 2026-07-20 09:26
 #>   Status: 200
 #>   Content-Type: application/json
 #>   Size: 1.4 kB

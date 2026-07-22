@@ -36,8 +36,9 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/ensemblVEP.html">ensemblVEP: using the REST API with Bioconductor</a></li>
-    <li><a class="dropdown-item" href="articles/filterVcf.html">2. Using filterVcf() to Select Variants from VCF Files</a></li>
+<li><a class="dropdown-item" href="articles/DetailedView.html">Overview of the VariantAnnotation Package</a></li>
+    <li><a class="dropdown-item" href="articles/ensemblVEP.html">ensemblVEP: using the REST API with Bioconductor</a></li>
+    <li><a class="dropdown-item" href="articles/filterVcf.html">Using filterVcf() to Select Variants from VCF Files</a></li>
   </ul>
 </li>
       </ul>
@@ -53,8 +54,121 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9">
-Annotate variants, compute amino acid coding changes, predict coding outcomes.
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="variantannotation">VariantAnnotation<a class="anchor" aria-label="anchor" href="#variantannotation"></a>
+</h1></div>
+<p>Bioconductor package for reading, writing, and annotating genetic variants in VCF format. Full documentation at <a href="https://vjcitn.github.io/VariantAnnotation/" class="external-link uri">https://vjcitn.github.io/VariantAnnotation/</a>.</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"VariantAnnotation"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="function-categories">Function categories<a class="anchor" aria-label="anchor" href="#function-categories"></a>
+</h2>
+<div class="section level3">
+<h3 id="vcf-io">VCF I/O<a class="anchor" aria-label="anchor" href="#vcf-io"></a>
+</h3>
+<p>Read, write, scan, and filter VCF files. <code>ScanVcfParam</code> controls which chromosomal regions, samples, and fields are loaded.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">vcf</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/readVcf-methods.html">readVcf</a></span><span class="op">(</span><span class="st">"variants.vcf.gz"</span>, genome <span class="op">=</span> <span class="st">"hg19"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/writeVcf-methods.html">writeVcf</a></span><span class="op">(</span><span class="va">vcf</span>, <span class="st">"output.vcf"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/filterVcf-methods.html">filterVcf</a></span><span class="op">(</span><span class="st">"variants.vcf.gz"</span>, genome <span class="op">=</span> <span class="st">"hg19"</span>, destination <span class="op">=</span> <span class="st">"filtered.vcf.gz"</span>,</span>
+<span>          filters <span class="op">=</span> <span class="fu">FilterRules</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minQ <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="fu"><a href="reference/VCF-class.html">fixed</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">$</span><span class="va">QUAL</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="reference/VCF-class.html">fixed</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">$</span><span class="va">QUAL</span> <span class="op">&gt;</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Key functions: <code>readVcf</code>, <code>writeVcf</code>, <code>scanVcf</code>, <code>scanVcfHeader</code>, <code>filterVcf</code>, <code>indexVcf</code>, <code>VcfFile</code>, <code>ScanVcfParam</code></p>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="vcf-data-structures-and-accessors">VCF data structures and accessors<a class="anchor" aria-label="anchor" href="#vcf-data-structures-and-accessors"></a>
+</h3>
+<p><code>CollapsedVCF</code> (one row per variant, multi-allelic ALT stored as list) and <code>ExpandedVCF</code> (one row per allele) form the core data model. Standard accessors retrieve each VCF component.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/VCF-class.html">ref</a></span><span class="op">(</span><span class="va">vcf</span><span class="op">)</span>        <span class="co"># reference alleles</span></span>
+<span><span class="fu"><a href="reference/VCF-class.html">alt</a></span><span class="op">(</span><span class="va">vcf</span><span class="op">)</span>        <span class="co"># alternate alleles (DNAStringSetList for CollapsedVCF)</span></span>
+<span><span class="fu"><a href="reference/VCF-class.html">info</a></span><span class="op">(</span><span class="va">vcf</span><span class="op">)</span>       <span class="co"># INFO fields as a DataFrame</span></span>
+<span><span class="fu"><a href="reference/VCF-class.html">geno</a></span><span class="op">(</span><span class="va">vcf</span><span class="op">)</span><span class="op">$</span><span class="va">GT</span>    <span class="co"># genotype matrix</span></span>
+<span><span class="fu"><a href="reference/VCFHeader-class.html">header</a></span><span class="op">(</span><span class="va">vcf</span><span class="op">)</span>     <span class="co"># VCFHeader with meta, contig, and format info</span></span>
+<span><span class="va">evcf</span> <span class="op">&lt;-</span> <span class="fu">VariantAnnotation</span><span class="fu">::</span><span class="fu">expand</span><span class="op">(</span><span class="va">vcf</span><span class="op">)</span>  <span class="co"># CollapsedVCF -&gt; ExpandedVCF</span></span></code></pre></div>
+<p>Key functions/classes: <code>VCF</code>, <code>CollapsedVCF</code>, <code>ExpandedVCF</code>, <code>VCFHeader</code>, <code>fixed</code>, <code>ref</code>, <code>alt</code>, <code>qual</code>, <code>filt</code>, <code>info</code>, <code>geno</code>, <code>header</code>, <code>meta</code>, <code>contig</code>, <code>vcfFields</code>, <code>expand</code></p>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="variant-classification">Variant classification<a class="anchor" aria-label="anchor" href="#variant-classification"></a>
+</h3>
+<p>Classify variants by mutation type. All functions operate on <code>VCF</code> or <code>VRanges</code> objects and return logical vectors.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/isSNV-methods.html">isSNV</a></span><span class="op">(</span><span class="va">vcf</span><span class="op">)</span>          <span class="co"># single nucleotide variants</span></span>
+<span><span class="fu"><a href="reference/isSNV-methods.html">isIndel</a></span><span class="op">(</span><span class="va">vcf</span><span class="op">)</span>        <span class="co"># insertions and deletions</span></span>
+<span><span class="fu"><a href="reference/isSNV-methods.html">isTransition</a></span><span class="op">(</span><span class="va">vcf</span><span class="op">)</span>   <span class="co"># transitions (A&lt;-&gt;G, C&lt;-&gt;T)</span></span>
+<span><span class="fu"><a href="reference/isSNV-methods.html">isSubstitution</a></span><span class="op">(</span><span class="va">vcf</span><span class="op">)</span> <span class="co"># substitutions (same-length alleles)</span></span></code></pre></div>
+<p>Key functions: <code>isSNV</code>, <code>isInsertion</code>, <code>isDeletion</code>, <code>isIndel</code>, <code>isDelins</code>, <code>isTransition</code>, <code>isSubstitution</code>; <code>VariantType</code> class hierarchy (<code>CodingVariants</code>, <code>SpliceSiteVariants</code>, <code>IntronVariants</code>, <code>FiveUTRVariants</code>, <code>ThreeUTRVariants</code>, <code>IntergenicVariants</code>, <code>PromoterVariants</code>)</p>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="functional-annotation">Functional annotation<a class="anchor" aria-label="anchor" href="#functional-annotation"></a>
+</h3>
+<p>Map variants to transcripts and predict protein-level consequences.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">loc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/locateVariants-methods.html">locateVariants</a></span><span class="op">(</span><span class="va">vcf</span>, <span class="va">txdb</span>, region <span class="op">=</span> <span class="fu"><a href="reference/VariantType-class.html">CodingVariants</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">coding</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/predictCoding-methods.html">predictCoding</a></span><span class="op">(</span><span class="va">vcf</span>, <span class="va">txdb</span>, seqSource <span class="op">=</span> <span class="va">Hsapiens</span><span class="op">)</span></span>
+<span><span class="va">summ</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/summarizeVariants-methods.html">summarizeVariants</a></span><span class="op">(</span><span class="va">vcf</span>, <span class="va">txdb</span>, mode <span class="op">=</span> <span class="fu"><a href="reference/VariantType-class.html">CodingVariants</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Key functions: <code>locateVariants</code>, <code>predictCoding</code>, <code>summarizeVariants</code>, <code>getTranscriptSeqs</code></p>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="genotype-analysis">Genotype analysis<a class="anchor" aria-label="anchor" href="#genotype-analysis"></a>
+</h3>
+<p>Convert VCF genotype calls to a <code>SnpMatrix</code> for downstream association testing (e.g. with the <strong>snpStats</strong> package).</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">snpStats</span><span class="op">)</span></span>
+<span><span class="va">sm</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/genotypeToSnpMatrix-methods.html">genotypeToSnpMatrix</a></span><span class="op">(</span><span class="va">vcf</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/snpStats/man/row.summary.html" class="external-link">col.summary</a></span><span class="op">(</span><span class="va">sm</span><span class="op">$</span><span class="va">genotypes</span><span class="op">)</span></span></code></pre></div>
+<p>Key functions: <code>genotypeToSnpMatrix</code>, <code>GLtoGP</code>, <code>probabilityToSnpMatrix</code></p>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="variant-ranges-vranges">Variant ranges (VRanges)<a class="anchor" aria-label="anchor" href="#variant-ranges-vranges"></a>
+</h3>
+<p><code>VRanges</code> extends <code>GRanges</code> with per-variant fields: alleles, read depth, and soft/hard filter results. Useful for variant calling pipelines.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">vr</span> <span class="op">&lt;-</span> <span class="fu">VRanges</span><span class="op">(</span>seqnames <span class="op">=</span> <span class="st">"chr1"</span>, ranges <span class="op">=</span> <span class="fu">IRanges</span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">1000</span><span class="op">)</span>,</span>
+<span>              ref <span class="op">=</span> <span class="st">"A"</span>, alt <span class="op">=</span> <span class="st">"T"</span>,</span>
+<span>              totalDepth <span class="op">=</span> <span class="fl">30</span>, altDepth <span class="op">=</span> <span class="fl">15</span>,</span>
+<span>              sampleNames <span class="op">=</span> <span class="st">"sample1"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/VRanges-class.html">altFraction</a></span><span class="op">(</span><span class="va">vr</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/VRanges-class.html">asVCF</a></span><span class="op">(</span><span class="va">vr</span><span class="op">)</span></span></code></pre></div>
+<p>Key functions/classes: <code>VRanges</code>, <code>VRangesList</code>, <code>makeVRangesFromGRanges</code>, <code>totalDepth</code>, <code>altDepth</code>, <code>refDepth</code>, <code>altFraction</code>, <code>refFraction</code>, <code>softFilterMatrix</code>, <code>hardFilters</code>, <code>called</code>, <code>asVCF</code>, <code>stackSamples</code></p>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="external-annotation-databases">External annotation databases<a class="anchor" aria-label="anchor" href="#external-annotation-databases"></a>
+</h3>
+<p>Interfaces to prebuilt SQLite databases for SIFT, PolyPhen-2, and PROVEAN pathogenicity predictions.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">SIFT.Hsapiens.dbSNP132</span><span class="op">)</span></span>
+<span><span class="va">db</span> <span class="op">&lt;-</span> <span class="va">SIFT.Hsapiens.dbSNP132</span></span>
+<span><span class="fu"><a href="reference/SIFTDbColumns.html">SIFTDbColumns</a></span><span class="op">(</span><span class="va">db</span><span class="op">)</span></span>
+<span><span class="fu">select</span><span class="op">(</span><span class="va">db</span>, keys <span class="op">=</span> <span class="st">"rs17970171"</span>, columns <span class="op">=</span> <span class="fu"><a href="reference/SIFTDbColumns.html">SIFTDbColumns</a></span><span class="op">(</span><span class="va">db</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Key classes: <code>SIFTDb</code>, <code>PolyPhenDb</code>, <code>PROVEANDb</code></p>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="ensembl-vep-rest-api">Ensembl VEP REST API<a class="anchor" aria-label="anchor" href="#ensembl-vep-rest-api"></a>
+</h3>
+<p>Query the Ensembl Variant Effect Predictor via its REST endpoint for human variants (hg38 / GRCh38).</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">resp</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/post_Hs_region.html">post_Hs_region</a></span><span class="op">(</span>chr <span class="op">=</span> <span class="st">"7"</span>, pos <span class="op">=</span> <span class="fl">155800001</span>,</span>
+<span>                       id <span class="op">=</span> <span class="st">"myVar"</span>, ref <span class="op">=</span> <span class="st">"A"</span>, alt <span class="op">=</span> <span class="st">"T"</span><span class="op">)</span></span>
+<span><span class="va">fl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"chr22.vcf.gz"</span>, package <span class="op">=</span> <span class="st">"VariantAnnotation"</span><span class="op">)</span></span>
+<span><span class="va">vcf</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/readVcf-methods.html">readVcf</a></span><span class="op">(</span><span class="va">fl</span><span class="op">)</span></span>
+<span><span class="va">hits</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/vep_by_region.html">vep_by_region</a></span><span class="op">(</span><span class="va">vcf</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, snv_only <span class="op">=</span> <span class="cn">FALSE</span>, chk_max <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<p>Key functions: <code>post_Hs_region</code>, <code>vep_by_region</code></p>
+</div>
+</div>
+</div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
